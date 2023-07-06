@@ -126,7 +126,7 @@ section {
   .large-font {
     font-size: 2em;
   }
-
+}
   .reset-button {
     font-size: 12px;
     width: 20ox;
@@ -136,4 +136,3 @@ section {
   .timer {
     height: 200px;
   }
- 
