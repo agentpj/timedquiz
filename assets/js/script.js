@@ -2,49 +2,58 @@ var questions =
   [
     {
       question: "What is not a JavaScript valid comparison operator?",
-      choices: ["a) <==", "b) ===", "c) !=", "d) >=="],
+      choices: ["<==", "===", "!=", ">=="],
       answer: 3
     },
     {
       question: "What is not a valid JavaScript variable name?",
-      choices: ["a) ArrayNum", "b) variablename", "c) arrayInteger", "d) variableChar"],
+      choices: ["ArrayNum", "variablename", "arrayInteger", "variableChar"],
       answer: 1
     },
     {
       question: "What is the correct way to do an HTML comment?",
-      choices: ["a) <# comment #>", "b) /* comment */", "c) &/ comment &/", "d) <! == comment == >"],
+      choices: ["<# comment #>", "/* comment */", "&/ comment &/", "<! == comment == >"],
       answer: 4
     },
     {
       question: "Which of the following is a type of EventListener?",
-      choices: ["a) mousetouch", "b) click", "c) keysubmit", "d) hover"],
+      choices: ["mousetouch", "click", "keysubmit", "hover"],
       answer: 2
     },
     {
       question: "Which code in JavaScript groups blocks or statements?",
-      choices: ["a) {}", "b) <>", "c) !!", "d) ##"],
+      choices: ["{}", "<>", "!!", "##"],
       answer: 1
     },
   ];
 
+var tempSection = document.querySelector(".quizSection");
 var tempQuestion = document.querySelector(".quizQuestion");
 var tempChoice1 = document.querySelector(".quizAnswer1");
 var tempChoice2 = document.querySelector(".quizAnswer2");
 var tempChoice3 = document.querySelector(".quizAnswer3");
 var tempChoice4 = document.querySelector(".quizAnswer4");
-var tempAnswer = "";
+var tempWins = document.querySelector(".win");
+var tempLosses = document.querySelector(".lose");
 
+
+var tempAnswer = "";
+var win = 0;
+var losses = 0;
+var tempCorrect = false;
 
 // var wordBlank = document.querySelector(".word-blanks");
-// var win = document.querySelector(".win");
-// var lose = document.querySelector(".lose");
+// under .card-results section
+var win = document.querySelector(".win");
+var lose = document.querySelector(".lose");
 // var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
 
 // var chosenWord = "";
 // var numBlanks = 0;
-// var winCounter = 0;
-// var loseCounter = 0;
+var winCounter = 0;
+var loseCounter = 0;
+var i = 0;
 // var isWin = false;
 // var timer;
 // var timerCount;
@@ -53,62 +62,91 @@ var startButton = document.querySelector(".start-button");
 // var lettersInChosenWord = [];
 // var blanksLetters = [];
 
+function init() {
+  getWins();
+  getLosses();
+}
+
 function loadQuestion() {
-  for (var i = 0; i < questions.length; i++) {
-    console.log(questions[i]);
-    // var question = questions[i].question;
+  event.preventDefault();
+  //tempSection.setAttribute("style", "background-color: white");
+  if (i == questions.length)
+     return
+  else {
+  // for (var i = 0; i < questions.length; i++) {
+  //   console.log(questions[i]);
+  //   // var question = questions[i].question;
     tempQuestion.textContent = questions[i].question;
     console.log("q1 " + tempQuestion.textContent);
     tempChoice1.textContent = questions[i].choices[0];
-    console.log("choices " + tempChoice1.textContent);
     tempChoice2.textContent = questions[i].choices[1];
     tempChoice3.textContent = questions[i].choices[2];
     tempChoice4.textContent = questions[i].choices[3];
     tempAnswer = questions[i].answer - 1;
+    console.log("tempAnswer " + tempAnswer);
     tempCorrect = false;
-
-    tempChoice1.addEventListener("click", checkIfCorrect1);
-    tempChoice2.addEventListener("click", checkIfCorrect1);
-    tempChoice3.addEventListener("click", checkIfCorrect1);
-    tempChoice4.addEventListener("click", checkIfCorrect1);
-    
   };
+  
 };
 
-
+function checkAnswer() {
+  tempChoice1.addEventListener("click", checkIfCorrect1);
+  tempChoice2.addEventListener("click", checkIfCorrect2);
+  tempChoice3.addEventListener("click", checkIfCorrect3);
+  tempChoice4.addEventListener("click", checkIfCorrect4);
+  console.log("tempCorrect " + tempCorrect);
+  if (tempCorrect = true) {
+    win++ }
+  else {
+    losses++ };
+    
+  tempWins = win;
+  tempLosses = losses;
+  console.log(win + " " + losses);
+};
 
 function checkIfCorrect1() {
-  console.log("here");
+  console.log("tempAnswer " + tempAnswer);
   event.currentTarget.setAttribute("style",
-    "background-color: orange");
+    "background-color: blue");
   if (tempAnswer = 0) {
     tempCorrect = true;
   }
+  console.log("tempCorrectinsidecheck " + tempCorrect);
+  return tempCorrect
 };
 
 function checkIfCorrect2(tempAnswer, tempCorrect) {
+  event.currentTarget.setAttribute("style",
+    "background-color: purple");
   if (tempAnswer = 1) {
     tempCorrect = true;
   }
+  console.log("tempCorrectinsidecheck " + tempCorrect);
+  return tempCorrect
 };
 
 function checkIfCorrect3(tempAnswer, tempCorrect) {
+  event.currentTarget.setAttribute("style",
+    "background-color: green");
   if (tempAnswer = 2) {
     tempCorrect = true;
   }
+  console.log("tempCorrectinsidecheck " + tempCorrect);
+  return tempCorrect
 };
 
 function checkIfCorrect4(tempAnswer, tempCorrect) {
+  event.currentTarget.setAttribute("style",
+    "background-color: yellow");
   if (tempAnswer = 3) {
     tempCorrect = true;
   }
+  console.log("tempCorrectinsidecheck " + tempCorrect);
+  return tempCorrect
 };
 
-// // The init function is called when the page loads 
-// function init() {
-//   getWins();
-//   getlosses();
-// }
+
 
 // // The startGame function is called when the start button is clicked
 // function startGame() {
@@ -116,7 +154,6 @@ function checkIfCorrect4(tempAnswer, tempCorrect) {
 //   timerCount = 10;
 //   // Prevents start button from being clicked when round is in progress
 //   startButton.disabled = true;
-//   renderBlanks()
 //   startTimer()
 // }
 
@@ -159,20 +196,7 @@ function checkIfCorrect4(tempAnswer, tempCorrect) {
 //   }, 1000);
 // }
 
-// // Creates blanks on screen
-// function renderBlanks() {
-//   // Randomly picks word from words array
-//   chosenWord = words[Math.floor(Math.random() * words.length)];
-//   lettersInChosenWord = chosenWord.split("");
-//   numBlanks = lettersInChosenWord.length;
-//   blanksLetters = []
-//   // Uses loop to push blanks to blankLetters array
-//   for (var i = 0; i < numBlanks; i++) {
-//     blanksLetters.push("_");
-//   }
-//   // Converts blankLetters array into a string and renders it on the screen
-//   wordBlank.textContent = blanksLetters.join(" ")
-// }
+
 
 // // Updates win count on screen and sets win count to client storage
 // function setWins() {
@@ -186,30 +210,30 @@ function checkIfCorrect4(tempAnswer, tempCorrect) {
 //   localStorage.setItem("loseCount", loseCounter);
 // }
 
-// // These functions are used by init
-// function getWins() {
-//   // Get stored value from client storage, if it exists
-//   var storedWins = localStorage.getItem("winCount");
-//   // If stored value doesn't exist, set counter to 0
-//   if (storedWins === null) {
-//     winCounter = 0;
-//   } else {
-//     // If a value is retrieved from client storage set the winCounter to that value
-//     winCounter = storedWins;
-//   }
-//   //Render win count to page
-//   win.textContent = winCounter;
-// }
+// These functions are used by init
+function getWins() {
+  // Get stored value from client storage, if it exists
+  var storedWins = localStorage.getItem("winCount");
+  // If stored value doesn't exist, set counter to 0
+  if (storedWins === null) {
+    winCounter = 0;
+  } else {
+    // If a value is retrieved from client storage set the winCounter to that value
+    winCounter = storedWins;
+  }
+  //Render win count to page
+  win.textContent = winCounter;
+}
 
-// function getlosses() {
-//   var storedLosses = localStorage.getItem("loseCount");
-//   if (storedLosses === null) {
-//     loseCounter = 0;
-//   } else {
-//     loseCounter = storedLosses;
-//   }
-//   lose.textContent = loseCounter;
-// }
+function getLosses() {
+  var storedLosses = localStorage.getItem("loseCount");
+  if (storedLosses === null) {
+    loseCounter = 0;
+  } else {
+    loseCounter = storedLosses;
+  }
+  lose.textContent = loseCounter;
+}
 
 // function checkWin() {
 //   // If the word equals the blankLetters array when converted to string, set isWin to true
@@ -258,7 +282,7 @@ function checkIfCorrect4(tempAnswer, tempCorrect) {
 // startButton.addEventListener("click", startGame);
 
 // // Calls init() so that it fires when page opened
-// init();
+init();
 
 // // Bonus: Add reset button
 // var resetButton = document.querySelector(".reset-button");
@@ -274,3 +298,4 @@ function checkIfCorrect4(tempAnswer, tempCorrect) {
 // Attaches event listener to button
 // resetButton.addEventListener("click", resetGame);
 startButton.addEventListener("click", loadQuestion);
+checkAnswer();
