@@ -42,11 +42,9 @@ var win = 0;
 var losses = 0;
 var tempCorrect = false;
 
-// var timerElement = document.querySelector(".timer-count");
+var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
 
-var winCounter = 0;
-var loseCounter = 0;
 var i = 0;
 
 
@@ -56,11 +54,11 @@ function loadQuestion() {
   tempChoice3.setAttribute("style", "background-color: white");
   tempChoice4.setAttribute("style", "background-color: white");
 
-  if (i == questions.length){
-     gameOver()}
+  if (i == questions.length) {
+    gameOver()
+  }
   else {
     tempQuestion.textContent = questions[i].question;
-    console.log("q1 " + tempQuestion.textContent);
     tempChoice1.textContent = questions[i].choices[0];
     tempChoice2.textContent = questions[i].choices[1];
     tempChoice3.textContent = questions[i].choices[2];
@@ -68,7 +66,6 @@ function loadQuestion() {
     tempAnswer = questions[i].answer;
     checkAnswer();
   };
-  
 };
 
 function checkAnswer() {
@@ -77,62 +74,85 @@ function checkAnswer() {
   tempChoice2.addEventListener("click", checkIfCorrect2);
   tempChoice3.addEventListener("click", checkIfCorrect3);
   tempChoice4.addEventListener("click", checkIfCorrect4);
-  console.log("tempCorrect " + tempCorrect);
-  
-  console.log(win + " " + losses);
 };
 
 function checkIfCorrect1() {
   tempCorrect = false;
-  console.log("tempAnswer " + tempAnswer);
   event.currentTarget.setAttribute("style",
     "background-color: blue");
-  console.log(tempChoice1.textContent, tempAnswer)
-  if (tempChoice1.textContent === tempAnswer ) {
+  if (tempChoice1.textContent === tempAnswer) {
     tempCorrect = true;
     win++
   }
   else {
-    losses++ };
-    
+    losses++
+  };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
-  setTimeout(function(){ 
-  i++
-  loadQuestion();
-  },500)
-  
+  setTimeout(function () {
+    i++
+    loadQuestion();
+  }, 500)
 };
 
 function checkIfCorrect2() {
   tempCorrect = false;
   event.currentTarget.setAttribute("style",
-    "background-color: purple");
+    "background-color: blue");
   if (tempChoice2.textContent == tempAnswer) {
     tempCorrect = true;
+    win++
+  }
+  else {
+    losses++
   };
-  return tempCorrect
+  tempWins.textContent = win;
+  tempLosses.textContent = losses;
+  setTimeout(function () {
+    i++
+    loadQuestion();
+  }, 500)
 };
 
 function checkIfCorrect3() {
   tempCorrect = false;
   event.currentTarget.setAttribute("style",
-    "background-color: green");
+    "background-color: blue");
   if (tempChoice3.textContent == tempAnswer) {
     tempCorrect = true;
+    win ++
+  }
+  else {
+    losses++
   };
-  return tempCorrect
-};
+  tempWins.textContent = win;
+  tempLosses.textContent = losses;
+  setTimeout(function () {
+    i++
+    loadQuestion();
+  }, 500)
+  };
+
 
 function checkIfCorrect4() {
   tempCorrect = false;
   event.currentTarget.setAttribute("style",
-    "background-color: yellow");
+    "background-color: blue");
   if (tempChoice4.textContent == tempAnswer) {
     tempCorrect = true;
+    win ++
+  }
+  else {
+    losses++
   };
-  return tempCorrect
-};
+  tempWins.textContent = win;
+  tempLosses.textContent = losses;
+  setTimeout(function () {
+    i++
+    loadQuestion();
+  }, 500)
+  };
+
 
 function gameOver() {
   tempChoice1.setAttribute("style", "background-color: white");
@@ -142,18 +162,4 @@ function gameOver() {
   tempSection.textContent = "Game Over! Thanks for playing";
 };
 
-
-
-// var resetButton = document.querySelector(".reset-button");
-
-// function resetGame() {
-//   // Resets win and loss counts
-//   winCounter = 0;
-//   loseCounter = 0;
-//   // Renders win and loss counts and sets them into client storage
-//   setWins()
-//   setLosses()
-// }
-// Attaches event listener to button
-// resetButton.addEventListener("click", resetGame);
 startButton.addEventListener("click", loadQuestion);
