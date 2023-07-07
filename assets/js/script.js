@@ -42,22 +42,40 @@ var win = 0;
 var losses = 0;
 var tempCorrect = false;
 
-var timerElement = document.querySelector(".timer-count");
+var tempTimer = document.querySelector(".timer-count");
+var timer = 0;
+var timerCount = 10;
+
 var startButton = document.querySelector(".start-button");
 
 var i = 0;
 
+function startTimer() {
+  timer = setInterval(function() {
+    timerCount --;
+    tempTimer.textContent = timerCount;
+    if (timerCount > 0) {
+      return }
+    else {
+      gameOver()
+    };
+  }, 1000);
+}
 
 function loadQuestion() {
   tempChoice1.setAttribute("style", "background-color: white");
   tempChoice2.setAttribute("style", "background-color: white");
   tempChoice3.setAttribute("style", "background-color: white");
   tempChoice4.setAttribute("style", "background-color: white");
-
+  tempTimer.textContent = timerCount;
+  
   if (i == questions.length) {
     gameOver()
   }
   else {
+    if (i == 0) {
+      startTimer()
+    }
     tempQuestion.textContent = questions[i].question;
     tempChoice1.textContent = questions[i].choices[0];
     tempChoice2.textContent = questions[i].choices[1];
@@ -86,6 +104,7 @@ function checkIfCorrect1() {
   }
   else {
     losses++
+    timerCount --
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -105,6 +124,7 @@ function checkIfCorrect2() {
   }
   else {
     losses++
+    timerCount --
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -124,6 +144,7 @@ function checkIfCorrect3() {
   }
   else {
     losses++
+    timerCount --
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -144,6 +165,7 @@ function checkIfCorrect4() {
   }
   else {
     losses++
+    timerCount --
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -155,6 +177,7 @@ function checkIfCorrect4() {
 
 
 function gameOver() {
+  clearInterval(timer);
   tempChoice1.setAttribute("style", "background-color: white");
   tempChoice2.setAttribute("style", "background-color: white");
   tempChoice3.setAttribute("style", "background-color: white");
