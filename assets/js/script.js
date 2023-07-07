@@ -1,3 +1,5 @@
+// Short Quiz Challenge #4
+// array that holds the 5 questions for this quiz
 var questions =
   [
     {
@@ -27,6 +29,7 @@ var questions =
     },
   ];
 
+//global variables associated with html for retrieval
 var tempSection = document.querySelector(".quizSection");
 var tempQuestion = document.querySelector(".quizQuestion");
 var tempChoice1 = document.querySelector(".quizAnswer1");
@@ -36,11 +39,12 @@ var tempChoice4 = document.querySelector(".quizAnswer4");
 var tempWins = document.querySelector(".win");
 var tempLosses = document.querySelector(".lose");
 
-
+// variable to check if user answer is correct, then set to true
+var tempCorrect = false;
 var tempAnswer = "";
+
 var win = 0;
 var losses = 0;
-var tempCorrect = false;
 
 var tempTimer = document.querySelector(".timer-count");
 var timer = 0;
@@ -50,29 +54,34 @@ var startButton = document.querySelector(".start-button");
 
 var i = 0;
 
+// this function starts the timer
 function startTimer() {
-  timer = setInterval(function() {
-    timerCount --;
+  timer = setInterval(function () {
+    timerCount--;
     tempTimer.textContent = timerCount;
     if (timerCount > 0) {
-      return }
+      return
+    }
     else {
       gameOver()
     };
   }, 1000);
 }
 
+// this function loads the first question once user is ready to start the Quiz
 function loadQuestion() {
   tempChoice1.setAttribute("style", "background-color: white");
   tempChoice2.setAttribute("style", "background-color: white");
   tempChoice3.setAttribute("style", "background-color: white");
   tempChoice4.setAttribute("style", "background-color: white");
   tempTimer.textContent = timerCount;
-  
+
+  // is i equal to our questions array?  i cannot be the same always one less than the length
   if (i == questions.length) {
     gameOver()
   }
   else {
+    // set the timer if first time through 
     if (i == 0) {
       startTimer()
     }
@@ -86,6 +95,7 @@ function loadQuestion() {
   };
 };
 
+// the user clicks on the answer to the question
 function checkAnswer() {
   tempCorrect = false;
   tempChoice1.addEventListener("click", checkIfCorrect1);
@@ -94,6 +104,10 @@ function checkAnswer() {
   tempChoice4.addEventListener("click", checkIfCorrect4);
 };
 
+// these functions are based on the user's choice of answer by highlighting the answer
+// let's see if their answer is correct, 
+// if it is, let's track the score, add one to win, else add 1 to losses and subtract a second from the time
+// as penalty
 function checkIfCorrect1() {
   tempCorrect = false;
   event.currentTarget.setAttribute("style",
@@ -104,7 +118,7 @@ function checkIfCorrect1() {
   }
   else {
     losses++
-    timerCount --
+    timerCount--
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -124,7 +138,7 @@ function checkIfCorrect2() {
   }
   else {
     losses++
-    timerCount --
+    timerCount--
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -140,11 +154,11 @@ function checkIfCorrect3() {
     "background-color: blue");
   if (tempChoice3.textContent == tempAnswer) {
     tempCorrect = true;
-    win ++
+    win++
   }
   else {
     losses++
-    timerCount --
+    timerCount--
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -152,7 +166,7 @@ function checkIfCorrect3() {
     i++
     loadQuestion();
   }, 500)
-  };
+};
 
 
 function checkIfCorrect4() {
@@ -161,11 +175,11 @@ function checkIfCorrect4() {
     "background-color: blue");
   if (tempChoice4.textContent == tempAnswer) {
     tempCorrect = true;
-    win ++
+    win++
   }
   else {
     losses++
-    timerCount --
+    timerCount--
   };
   tempWins.textContent = win;
   tempLosses.textContent = losses;
@@ -173,9 +187,9 @@ function checkIfCorrect4() {
     i++
     loadQuestion();
   }, 500)
-  };
+};
 
-
+// if all the questions have been answered or if ran out of time, it's game over!
 function gameOver() {
   clearInterval(timer);
   tempChoice1.setAttribute("style", "background-color: white");
@@ -185,4 +199,5 @@ function gameOver() {
   tempSection.textContent = "Game Over! Thanks for playing";
 };
 
+// Is user ready to take the quiz?
 startButton.addEventListener("click", loadQuestion);
