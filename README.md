@@ -24,6 +24,6 @@ Git Hub repository url:
 https://github.com/agentpj/timedquiz
 
 Git Hub deployment url:
-
+https://agentpj.github.io/timedquiz/
 
 ![The readme.md includes a screenshot of the Short Quiz.](./assets/quizChallenge.jpg)
